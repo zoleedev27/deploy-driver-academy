@@ -1,0 +1,33 @@
+{
+  "signup": {
+    "page.title": "Sign Up",
+    "create.account": "Create Account",
+    "name.label": "Name",
+    "name.placeholder": "Your name",
+    "email.label": "Email",
+    "email.placeholder": "your.email@example.com",
+    "password.label": "Password",
+    "password.placeholder": "Create a password",
+    "confirm.password.label": "Confirm Password",
+    "confirm.password.placeholder": "Confirm your password",
+    "submit.button": "Sign Up",
+    "password.requirements": "Password must contain:",
+    "password.requirement.length": "At least 8 characters",
+    "password.requirement.uppercase": "At least 1 uppercase letter",
+    "password.requirement.lowercase": "At least 1 lowercase letter",
+    "password.requirement.digit": "At least 1 digit",
+    "password.requirement.special": "At least 1 special character",
+    "description": "Enter your information to create your account",
+    "back.to.home": "Back to Home",
+    "validation": {
+      "name.length": "Name must be at least 2 characters.",
+      "invalid.email": "Invalid email address.",
+      "password.length": "Password must be at least 8 characters",
+      "password.uppercase": "Password must contain at least 1 uppercase character",
+      "password.lowercase": "Password must contain at least 1 lowercase character",
+      "password.digit": "Password must contain at least 1 digit",
+      "password.special": "Password must contain at least 1 special character",
+      "passwords.match": "Passwords don't match"
+    }
+  }
+}

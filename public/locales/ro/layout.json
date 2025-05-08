@@ -1,0 +1,60 @@
+{
+    "footer": {
+      "brand": "Go Kart Cluj",
+      "description": "Contrar credinței populare, Lorem Ipsum nu este doar un text aleatoriu. Are rădăcini într-o lucrare de literatură latină clasică din anul 45 î.Hr., având peste 2000 de ani.",
+      "social.media": {
+        "facebook": "Facebook",
+        "instagram": "Instagram"
+      },
+      "contact": {
+        "title": "Contact",
+        "address": "407280, Nădășelu, România",
+        "phone": "+40 739 853 530",
+        "email": "rezervari@clujkartingcircuit.ro",
+        "hours.title": "Program:",
+        "hours": [
+          "11:00 - 20:00",
+          "10:00 - 20:00"
+        ]
+      },
+      "newsletter": {
+        "title": "Newsletter",
+        "placeholder": "Adresă de email",
+        "subscribe": "Abonează-te",
+        "reserve.title": "Fă o rezervare",
+        "reserve.button": "Rezervă o sesiune"
+      },
+      "footer.bottom": {
+        "copyright": "© Go Kart Cluj",
+        "terms": "Termeni și condiții",
+        "privacy": "Politica de confidențialitate",
+        "cookies": "Politica de cookie-uri"
+      }
+    },
+    "nav": {
+      "links": {
+        "title": "Linkuri utile",
+        "home": "Acasă",
+        "about": "Despre noi",
+        "contact": "Contact",
+        "gallery": "Galerie",
+        "calendar": "Calendar",
+        "inbox": "Mesaje"
+      }
+    },
+    "header": {
+      "brand": "Go Kart Cluj",
+      "auth": {
+        "login": "Autentificare",
+        "signup": "Înregistrare",
+        "logout": "Deconectare",
+        "profile": "Profil",
+        "user.name": "Nume utilizator"
+      },
+      "demo.toggle": {
+        "login": "Demo: Autentificare",
+        "logout": "Demo: Deconectare"
+      }
+    }
+  }
+  

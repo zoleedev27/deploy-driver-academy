@@ -1,0 +1,33 @@
+{
+  "signup": {
+    "page.title": "Înregistrare",
+    "create.account": "Creează cont",
+    "name.label": "Nume",
+    "name.placeholder": "Numele tău",
+    "email.label": "Email",
+    "email.placeholder": "adresa.ta@email.com",
+    "password.label": "Parolă",
+    "password.placeholder": "Creează o parolă",
+    "confirm.password.label": "Confirmă parola",
+    "confirm.password.placeholder": "Confirmă parola ta",
+    "submit.button": "Înregistrează-te",
+    "password.requirements": "Parola trebuie să conțină:",
+    "password.requirement.length": "Cel puțin 8 caractere",
+    "password.requirement.uppercase": "Cel puțin o literă mare",
+    "password.requirement.lowercase": "Cel puțin o literă mică",
+    "password.requirement.digit": "Cel puțin o cifră",
+    "password.requirement.special": "Cel puțin un caracter special",
+    "description": "Introdu informațiile pentru a crea cont",
+    "back.to.home": "Înapoi acasă",
+    "validation": {
+      "name.length": "Numele trebuie să aibă cel puțin 2 caractere.",
+      "invalid.email": "Adresă de email invalidă.",
+      "password.length": "Parola trebuie să aibă cel puțin 8 caractere",
+      "password.uppercase": "Parola trebuie să conțină cel puțin o literă mare",
+      "password.lowercase": "Parola trebuie să conțină cel puțin o literă mică",
+      "password.digit": "Parola trebuie să conțină cel puțin o cifră",
+      "password.special": "Parola trebuie să conțină cel puțin un caracter special",
+      "passwords.match": "Parolele nu se potrivesc"
+    }
+  }
+}
