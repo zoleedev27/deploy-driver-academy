@@ -3,26 +3,34 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription} from "./ui/alert";
 import { KeyRound, ArrowRight, AtSign} from "lucide-react"
-import {getSchema} from "@/types/SchemaEmailForgotPassword"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createForgotPasswordSchema, ForgotPasswordSchema } from "@/types/SchemaEmailForgotPassword";
 import { useEffect, useState } from "react";
 import { findMockUserByEmail, generateResetToken, initMockData, sendMockEmail } from "@/constants/MockUsers";
 import { useRouter } from "next/navigation";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { useTranslation } from "next-i18next";
-import {z} from "zod";
 
 const ForgotPasswordForm = () => {
     const router = useRouter();
 
     const {t} = useTranslation("auth");
-    const schema = getSchema(t);
 
     const [error, setError] = useState<string | null>(null);;
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = async (data:  z.infer<typeof schema>) => {
+    
+    const formSchema = createForgotPasswordSchema(t);
+
+    const form = useForm<ForgotPasswordSchema>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        email: "",
+      },
+    });
+    
+    const onSubmit = async (data:  ForgotPasswordSchema) => {
         setIsLoading(true);
         setError(null);
         try{
@@ -52,14 +60,7 @@ const ForgotPasswordForm = () => {
         }finally{
             setIsLoading(false);
         }
-    };
-
-    const form = useForm<z.infer<typeof schema>>({
-        resolver: zodResolver(schema),
-        defaultValues: {
-            email: "",
-        },
-    });
+    };     
 
     useEffect(() => {
         initMockData();

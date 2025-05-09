@@ -1,0 +1,19 @@
+{"signup": {
+"pageTitle": "Înregistrare",
+"createAccount": "Creează cont",
+"nameLabel": "Nume",
+"namePlaceholder": "Numele tău",
+"emailLabel": "Email",
+"emailPlaceholder": "adresa.ta@email.com",
+"passwordLabel": "Parolă",
+"passwordPlaceholder": "Creează o parolă",
+"confirmPasswordLabel": "Confirmă parola",
+"confirmPasswordPlaceholder": "Confirmă parola ta",
+"submitButton": "Înregistrează-te",
+"passwordRequirements": "Parola trebuie să conțină:",
+"passwordRequirementLength": "Cel puțin 8 caractere",
+"passwordRequirementUppercase": "Cel puțin o literă mare",
+"passwordRequirementLowercase": "Cel puțin o literă mică",
+"passwordRequirementDigit": "Cel puțin o cifră",
+"passwordRequirementSpecial": "Cel puțin un caracter special"
+}}

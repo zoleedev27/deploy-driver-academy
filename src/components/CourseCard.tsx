@@ -7,8 +7,8 @@ import {
   CardFooter,
 } from "./ui/card";
 import { Button } from "./ui/button";
-
-import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { slugify } from "@/lib/utils";
 
 export interface KartingCourseCardProps {
   title: string;
@@ -31,8 +31,6 @@ const KartingCourseCard: React.FC<KartingCourseCardProps> = ({
   imageUrl,
   labels,
 }) => {
-  const { t } = useTranslation("courses");
-
   return (
     <Card className="w-full max-w-full sm:max-w-2/3 mx-auto overflow-hidden rounded-2xl shadow-md bg-white dark:bg-neutral-800 flex flex-col md:flex-row p-4 md:p-6">
       <div className="relative w-full h-48 2xl:h-82 md:h-auto md:w-1/2">
@@ -65,9 +63,11 @@ const KartingCourseCard: React.FC<KartingCourseCardProps> = ({
           <p className="text-lg font-bold text-green-600">
             ${price.toFixed(2)}
           </p>
-          <Button className="bg-green-600 text-white hover:bg-green-700 w-40 cursor-pointer">
-            {labels.registerButton}
-          </Button>
+          <Link href={`/courses/${slugify(title)}`} className="w-40">
+            <Button className="bg-green-600 text-white hover:bg-green-700 w-40 cursor-pointer">
+              {labels.registerButton}
+            </Button>
+          </Link>
         </CardFooter>
       </div>
     </Card>

@@ -91,7 +91,7 @@ const CookieConsent = () => {
                     <div className="bg-white w-full max-w-lg rounded-xl p-6 shadow-xl">
                         <h2 className="text-xl font-semibold mb-2 text-gray-900">Manage Cookie Preferences</h2>
                         <p className="text-sm text-gray-600 mb-4">
-                            Select which categories of cookies you're comfortable with. These settings can be updated at any time.
+                            Select which categories of cookies you&apos;re comfortable with. These settings can be updated at any time.
                         </p>
 
                         <div className="space-y-3 text-sm text-gray-800">

@@ -22,7 +22,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             year: years[index % years.length],
         }));
         res.status(200).json(images);
-    } catch (error) {
+    } catch {
         res.status(500).json([]);
     }
 }

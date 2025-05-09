@@ -1,10 +1,18 @@
 import { PaginatedList } from "@/components/PaginatedList";
 import KartingCourseCard from "@/components/CourseCard";
-import { courses_mock } from "@/data/courses-mock";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export default function Courses() {
+type Course = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  duration: string;
+  imageUrl: string;
+};
+
+export default function Courses({ courses }: { courses: Course[] }) {
   const { t } = useTranslation("courses");
 
   return (
@@ -14,7 +22,7 @@ export default function Courses() {
       </h1>
 
       <PaginatedList
-        items={courses_mock}
+        items={courses}
         routePrefix="/courses"
         renderItem={(course) => (
           <KartingCourseCard
@@ -36,10 +44,20 @@ export default function Courses() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const res = await fetch("http://localhost:4000/api/courses");
+  const data = await res.json();
+
+  const courses = data.courses_mock;
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["courses", "pagination"])),
+      courses,
+      ...(await serverSideTranslations(locale, [
+        "courses",
+        "pagination",
+        "layout",
+      ])),
     },
   };
 }
