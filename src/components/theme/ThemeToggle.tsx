@@ -4,20 +4,34 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [isDark, setIsDark] = React.useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    setIsDark(theme === "dark");
-  }, [theme]);
+  useEffect(() => {
+    setMounted(true);
+    const isCurrentlyDark = resolvedTheme === "dark";
+    setIsDark(isCurrentlyDark);
+  }, [resolvedTheme]);
 
   const toggleTheme = () => {
     const newTheme = isDark ? "light" : "dark";
     setIsDark(!isDark);
     setTheme(newTheme);
   };
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        className="text-black dark:text-white"
+      />
+    );
+  }
 
   return (
     <Button

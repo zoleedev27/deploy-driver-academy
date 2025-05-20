@@ -22,6 +22,19 @@
     "passwordRequirementDigit": "Cel puțin o cifră",
     "passwordRequirementSpecial": "Cel puțin un caracter special"
   },
+   "login": {
+    "title": "Autentificare",
+    "subtitle": "Introdu datele tale pentru a accesa contul",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tu@exemplu.com",
+    "passwordLabel": "Parolă",
+    "passwordPlaceholder": "********",
+    "submit": "Sign In",
+    "back.to.home": "Înapoi acasă",
+    "back.to.register": "Înregistrează-te",
+    "back.to.forgot.password": "Ai uitat parola?",
+    "loading": "Se autentifică..."
+  },
   "contact.us.title": "Contactează-ne",
   "have.any.questions": "Ai întrebari? Suntem aici să te ajutăm!",
   "title": "Titlu",
@@ -38,3 +51,4 @@
   "schedule": "Program",
   "address": "407280, Nădășelu, România"
 }
+

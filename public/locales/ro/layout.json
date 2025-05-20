@@ -1,7 +1,7 @@
 {
     "footer": {
       "brand": "Go Kart Cluj",
-      "description": "Contrar credinței populare, Lorem Ipsum nu este doar un text aleatoriu. Are rădăcini într-o lucrare de literatură latină clasică din anul 45 î.Hr., având peste 2000 de ani.",
+      "description": "Vino la Cluj Karting Circuit și trăiește experiența unei curse pline de viteză și emoție! Siguranță, competiție și distracție garantată!",
       "social.media": {
         "facebook": "Facebook",
         "instagram": "Instagram"
@@ -11,7 +11,7 @@
         "address": "407280, Nădășelu, România",
         "phone": "+40 739 853 530",
         "email": "rezervari@clujkartingcircuit.ro",
-        "hours.title": "Program:",
+        "program": "Program:",
         "hours": [
           "11:00 - 20:00",
           "10:00 - 20:00"
@@ -19,6 +19,7 @@
       },
       "newsletter": {
         "title": "Newsletter",
+        "description": "Actualizări rapide, imediat",
         "placeholder": "Adresă de email",
         "subscribe": "Abonează-te",
         "reserve.title": "Fă o rezervare",
@@ -35,11 +36,10 @@
       "links": {
         "title": "Linkuri utile",
         "home": "Acasă",
-        "about": "Despre noi",
-        "contact": "Contact",
+        "courses": "Cursuri",
+        "blog": "Blog",
         "gallery": "Galerie",
-        "calendar": "Calendar",
-        "inbox": "Mesaje"
+        "contact": "Contact"
       }
     },
     "header": {

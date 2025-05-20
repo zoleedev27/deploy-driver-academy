@@ -1,7 +1,10 @@
 {
-    "pageTitle": "Our Karting Courses",
-    "cardTitle": "Karting Course",
-    "duration": "Duration",
-    "price": "Price",
-    "registerButton": "Register Now"
+  "pageTitle": "Our Karting Courses",
+  "cardTitle": "Karting Course",
+  "duration": "Duration",
+  "price": "Price",
+  "registerButton": "Register Now",
+  "teacherName": "Teacher",
+  "difficulty": "Difficulty",
+  "maxParticipants": "Max Participants"
 }

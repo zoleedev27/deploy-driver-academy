@@ -1,0 +1,41 @@
+{
+  "yourEvents": "Your Events",
+  "allEvents": "All Users' Events",
+  "daysOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "shortenedDays": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "today": "Today",
+  "eventsFor": "Events For",
+  "multiDayEvents": "Multi-day events span across dates",
+  "yourPersonalEvent": "Your personal event",
+  "openToAllUsers": "Open to all users"
+}

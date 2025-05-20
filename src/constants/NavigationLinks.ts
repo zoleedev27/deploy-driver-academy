@@ -1,9 +1,7 @@
 export const NAV_LINKS = [
     {name: "links.home", href: "/", icon: "Home"},
-    {name: "links.about", href: "/about", icon: "Group"},
-    {name: "links.contact", href: "/contact", icon: "Contact"},
-    {name: "links.gallery", href: "/gallery", icon: "BookImage"},
-    {name: "links.calendar", href: "/calendar", icon: "Calendar"},
-    {name: "links.inbox", href: "/inbox", icon: "Inbox"},
-
+    {name: "links.courses", href: "/courses", icon: "Courses"},
+    {name: "links.blog", href: "/blog", icon: "Blog"},
+    {name: "links.gallery", href: "/gallery", icon: "Gallery"},
+    {name: "links.contact", href: "/contact", icon: "Contact"}
 ]

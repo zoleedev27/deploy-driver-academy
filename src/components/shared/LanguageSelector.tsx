@@ -15,7 +15,8 @@ export default function LanguageSelector() {
 
   const handleLanguageChange = (value: string) => {
     i18n.changeLanguage(value).then(() => {
-      router.push(router.pathname, undefined, { locale: value });
+      const { pathname, query } = router;
+      router.push({ pathname, query }, undefined, { locale: value });
     });
   };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { useTranslation } from 'next-i18next';
 import Image from "next/image";
 import { Funnel, ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import {
@@ -14,6 +15,7 @@ const imageExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
 const filterKeys: GalleryFilterKey[] = ["campaign", "course", "year"];
 
 export default function GalleryClient() {
+  const { t } = useTranslation('gallery');
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [filteredImages, setFilteredImages] = useState<GalleryImage[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
@@ -30,7 +32,7 @@ export default function GalleryClient() {
   const initialData: Record<`${GalleryFilterKey}s`, string[]> = {
     campaigns: [],
     courses: [],
-    years: [],
+    years: []
   };
 
   const [selectedFilters, setSelectedFilters] = useState(initialData);
@@ -63,10 +65,8 @@ export default function GalleryClient() {
 
   useEffect(() => {
     const { filters, sort } = getFiltersAndSortFromURL();
-
     setSelectedFilters(filters);
     if (sort) setSortBy(sort);
-
     fetch("/api/mock-gallery")
       .then((res) => res.json())
       .then((data) => {
@@ -80,26 +80,30 @@ export default function GalleryClient() {
 
   useEffect(() => {
     const { filters, sort } = getFiltersAndSortFromURL();
-
     setSelectedFilters(filters);
     if (sort) setSortBy(sort);
   }, [searchParams]);
 
+  const filterBtnRef = useRef<HTMLButtonElement>(null);
+  const sortBtnRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (
-        filterRef.current &&
-        !filterRef.current.contains(e.target as Node) &&
-        sortRef.current &&
-        !sortRef.current.contains(e.target as Node)
-      ) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      const isInsideFilter =
+          filterRef.current?.contains(target) || filterBtnRef.current?.contains(target);
+      const isInsideSort =
+          sortRef.current?.contains(target) || sortBtnRef.current?.contains(target);
+      if (!isInsideFilter && showFilter) {
         setShowFilter(false);
+      }
+      if (!isInsideSort && showSort) {
         setShowSort(false);
       }
     };
-    window.addEventListener("mousedown", handler);
-    return () => window.removeEventListener("mousedown", handler);
-  }, []);
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, [showFilter, showSort]);
 
   const applyFilters = (
     data: GalleryImage[],
@@ -158,7 +162,6 @@ export default function GalleryClient() {
       }
       router.push(`?${params.toString()}`);
       setShowFilter(true);
-      setTimeout(() => setShowFilter(false), 5000);
       return newFilters;
     });
   };
@@ -206,31 +209,41 @@ export default function GalleryClient() {
     <div className="max-w-7xl mx-auto px-4">
       <div className="flex justify-end items-center mb-6 gap-4 relative">
         <button
-          onClick={() => {
-            setShowFilter((p) => !p);
-            setShowSort(false);
-          }}
-          className={`hover:scale-110 transition-colors ${
-            showFilter
-              ? "text-primary"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-          aria-label="Toggle filters"
+            ref={filterBtnRef}
+            onClick={() => {
+              if (showFilter) {
+                setShowFilter(false);
+              } else {
+                setShowFilter(true);
+                setShowSort(false);
+              }
+            }}
+            className={`hover:scale-110 transition-colors ${
+                showFilter
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+            }`}
+            aria-label="Toggle filters"
         >
           <Funnel className="w-6 h-6" />
         </button>
 
         <button
-          onClick={() => {
-            setShowSort((p) => !p);
-            setShowFilter(false);
-          }}
-          className={`hover:scale-110 transition-colors ${
-            showSort
-              ? "text-primary"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-          aria-label="Toggle sort"
+            ref={sortBtnRef}
+            onClick={() => {
+              if (showSort) {
+                setShowSort(false);
+              } else {
+                setShowSort(true);
+                setShowFilter(false);
+              }
+            }}
+            className={`hover:scale-110 transition-colors ${
+                showSort
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+            }`}
+            aria-label="Toggle sort"
         >
           <ArrowUpDown className="w-6 h-6" />
         </button>
@@ -248,7 +261,7 @@ export default function GalleryClient() {
                 return (
                   <div key={categoryKey} className="mb-4">
                     <p className="font-semibold capitalize mb-2">
-                      {categoryKey}s
+                      {t(`${categoryKey}s`)}
                     </p>
                     <div className="grid grid-cols-2 gap-2">
                       {displayOptions.map((value) => (
@@ -275,7 +288,7 @@ export default function GalleryClient() {
                         }
                         className="flex items-center mt-2 text-xs text-gray-300 hover:text-white"
                       >
-                        {showAll ? "Show less" : "Show all"}
+                        {showAll ? t('show-less') : t('show-all')}
                         {showAll ? (
                           <ChevronUp size={16} className="ml-1" />
                         ) : (
@@ -296,12 +309,11 @@ export default function GalleryClient() {
                   params.set("sortKey", sortBy.key);
                   params.set("sortOrder", sortBy.order);
                 }
-
                 router.push(`?${params.toString()}`);
               }}
               className="w-full mt-2 text-xs font-semibold text-gray-300 hover:text-white"
             >
-              Clear all filters
+              {t('clear-all')}
             </button>
           </div>
         )}
@@ -313,7 +325,7 @@ export default function GalleryClient() {
           >
             {filterKeys.map((key) => (
               <div key={key} className="flex justify-between items-center mb-3">
-                <span className="font-semibold capitalize mb-2">{key}</span>
+                <span className="font-semibold capitalize mb-2">{t(`${key}s`)}</span>
                 <div className="flex gap-1">
                   <button
                     className={`px-2 py-1 rounded text-xs font-medium ${
@@ -327,20 +339,16 @@ export default function GalleryClient() {
                         order: "asc" | "desc";
                       } = { key, order: "asc" };
                       setSortBy(newSort);
-
                       const params = new URLSearchParams();
-
                       Object.entries(selectedFilters).forEach(([k, values]) => {
                         values.forEach((v) => params.append(k, v));
                       });
-
                       params.set("sortKey", newSort.key);
                       params.set("sortOrder", newSort.order);
-
                       router.push(`?${params.toString()}`);
                     }}
                   >
-                    {key === "year" ? "Oldest First" : "A→Z"}
+                    {key === "year" ? t('oldest-first') : "A→Z"}
                   </button>
                   <button
                     className={`px-2 py-1 rounded text-xs font-medium ${
@@ -354,20 +362,16 @@ export default function GalleryClient() {
                         order: "asc" | "desc";
                       } = { key, order: "desc" };
                       setSortBy(newSort);
-
                       const params = new URLSearchParams();
-
                       Object.entries(selectedFilters).forEach(([k, values]) => {
                         values.forEach((v) => params.append(k, v));
                       });
-
                       params.set("sortKey", newSort.key);
                       params.set("sortOrder", newSort.order);
-
                       router.push(`?${params.toString()}`);
                     }}
                   >
-                    {key === "year" ? "Latest First" : "Z→A"}
+                    {key === "year" ? t('latest-first') : "Z→A"}
                   </button>
                 </div>
               </div>
@@ -398,7 +402,6 @@ export default function GalleryClient() {
                     {filterKeys.map((key) => {
                       const value = image[key];
                       if (!value) return null;
-
                       return (
                         <button
                           key={key}
@@ -440,7 +443,6 @@ export default function GalleryClient() {
             {(["campaign", "course", "year"] as const).map((key) => {
               const value = filteredImages[currentIndex]?.[key];
               if (!value) return null;
-
               return (
                 <button
                   key={key}

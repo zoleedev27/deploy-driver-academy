@@ -1,19 +1,35 @@
-import { PaginatedList } from "@/components/PaginatedList";
-import KartingCourseCard from "@/components/CourseCard";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { fetchCourses } from '@/pages/api/courses';
+import { useTranslation } from 'next-i18next';
+import KartingCourseCard from '@/components/CourseCard';
+import { PaginatedList } from '@/components/PaginatedList';
 
 type Course = {
   id: number;
   title: string;
   description: string;
+  teacherName: string;
   price: number;
-  duration: string;
-  imageUrl: string;
+  maxParticipants: number;
+  difficulty: string;
+  images: string[];
 };
 
-export default function Courses({ courses }: { courses: Course[] }) {
-  const { t } = useTranslation("courses");
+const COURSES_QUERY_KEY = ['courses'];
+
+export default function CoursesPage({}: any) {
+  const { t } = useTranslation('courses');
+
+  const { data } = useQuery({
+    queryKey: COURSES_QUERY_KEY,
+    queryFn: () => fetchCourses({ page: 1, itemsPerPage: 100 }),
+  });
+
+  const courses = data?.data.map((course: any) => ({
+    ...course,
+    images: course.images?.map((img: any) => img.url) ?? [],
+  })) ?? [];
 
   return (
     <main className="flex flex-col items-center gap-8 px-4 py-10 min-h-screen">
@@ -24,17 +40,18 @@ export default function Courses({ courses }: { courses: Course[] }) {
       <PaginatedList
         items={courses}
         routePrefix="/courses"
-        renderItem={(course) => (
+        renderItem={(course: Course) => (
           <KartingCourseCard
             key={course.id}
             title={course.title}
             description={course.description}
+            teacherName={course.teacherName}
             price={course.price}
-            duration={course.duration}
-            imageUrl={course.imageUrl}
+            maxParticipants={course.maxParticipants}
+            difficulty={course.difficulty}
+            images={course.images}
             labels={{
               cardTitle: t("cardTitle"),
-              duration: t("duration"),
               registerButton: t("registerButton"),
             }}
           />
@@ -45,18 +62,20 @@ export default function Courses({ courses }: { courses: Course[] }) {
 }
 
 export async function getServerSideProps({ locale }: { locale: string }) {
-  const res = await fetch("http://localhost:4000/api/courses");
-  const data = await res.json();
+  const queryClient = new QueryClient();
 
-  const courses = data.courses_mock;
+  await queryClient.prefetchQuery({
+    queryKey: COURSES_QUERY_KEY,
+    queryFn: () => fetchCourses({ page: 1, itemsPerPage: 100 }),
+  });
 
   return {
     props: {
-      courses,
+      dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, [
-        "courses",
-        "pagination",
-        "layout",
+        'courses',
+        'pagination',
+        'layout',
       ])),
     },
   };

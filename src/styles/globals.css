@@ -48,7 +48,7 @@
 
 html,
 body {
-  @apply bg-black text-white;
+  @apply  text-white;
 }
 
 :root {
@@ -249,9 +249,9 @@ body {
 .tag-glow-strong {
   font-size: 0.75rem;
   background: linear-gradient(
-    to right,
-    rgba(16, 185, 129, 1),
-    rgba(16, 185, 129, 0.8)
+          to right,
+          rgba(16, 185, 129, 1),
+          rgba(16, 185, 129, 0.8)
   );
   color: #000;
   padding: 6px 12px;

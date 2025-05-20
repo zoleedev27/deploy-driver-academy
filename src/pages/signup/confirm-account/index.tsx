@@ -1,4 +1,10 @@
-import {Card,CardHeader,CardTitle,CardDescription,CardFooter,} from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +23,9 @@ const VerifyAccount: NextPageWithLayout = () => {
   const params = useSearchParams();
   const { t } = useTranslation("auth");
 
-  const [verificationStatus, setVerificationStatus] = useState<"loading" | "success" | "error">("loading");
+  const [verificationStatus, setVerificationStatus] = useState<
+    "loading" | "success" | "error"
+  >("loading");
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
@@ -29,40 +37,24 @@ const VerifyAccount: NextPageWithLayout = () => {
     }
 
     const verifyToken = () => {
-      const tokens = JSON.parse(
-        localStorage.getItem("mockVerificationTokens") || "[]"
-      );
-      const tokenData = tokens.find((t: { token: string }) => t.token === token);
+      const storedToken = localStorage.getItem("tokenMock");
 
-      if (!tokenData) {
+      if (token === storedToken) {
+        const storedEmail = localStorage.getItem("lastEmail");
+        if (storedEmail) {
+          setUserEmail(storedEmail);
+        }
+
+        setVerificationStatus("success");
+
+        localStorage.setItem("tokenVerified", "true");
+
+        setTimeout(() => {
+          router.push("/login");
+        }, 5000);
+      } else {
         setVerificationStatus("error");
-        return;
       }
-
-      const users = JSON.parse(
-        localStorage.getItem("mockUsersVerified") || "[]"
-      );
-      const userIndex = users.findIndex(
-        (u: { id: string }) => u.id === tokenData.userId
-      );
-
-      if (userIndex === -1) {
-        setVerificationStatus("error");
-        return;
-      }
-
-      setUserEmail(users[userIndex].email);
-      users[userIndex].verified = true;
-
-      localStorage.setItem("mockUsersVerified", JSON.stringify(users));
-
-      const updatedTokens = tokens.filter(
-        (t: { token: string }) => t.token !== token
-      );
-      localStorage.setItem("mockVerificationTokens", JSON.stringify(updatedTokens));
-
-      setVerificationStatus("success");
-      setTimeout(() => {router.push("/login")},5000);
     };
 
     const timer = setTimeout(() => {
@@ -70,7 +62,7 @@ const VerifyAccount: NextPageWithLayout = () => {
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [params,router]);
+  }, [params, router]);
 
   return (
     <div className="flex items-center justify-center min-h-screen py-10 font-body text-black dark:text-white">
@@ -83,14 +75,25 @@ const VerifyAccount: NextPageWithLayout = () => {
                   <CheckCircle2 className="h-10 w-10 text-green-600 dark:text-green-300" />
                 </div>
               </div>
-              <CardTitle className="text-2xl font-bold text-center">{t("sign.up.verify.account.title.success")}</CardTitle>
-              <CardDescription className="text-center">{t("sign.up.verify.account.description.success", { email: userEmail })}</CardDescription>
+              <CardTitle className="text-2xl font-bold text-center">
+                {t("sign.up.verify.account.title.success")}
+              </CardTitle>
+              <CardDescription className="text-center">
+                {t("sign.up.verify.account.description.success", {
+                  email: userEmail,
+                })}
+              </CardDescription>
             </CardHeader>
             <CardFooter className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button onClick={() => router.push("/login")} className="flex-1">{t("sign.up.verify.account.buttons.login")}</Button>
-              <Button variant="outline" onClick={() => router.push("/")}>{t("sign.up.verify.account.buttons.home")}</Button>
+              <Button onClick={() => router.push("/login")} className="flex-1">
+                {t("sign.up.verify.account.buttons.login")}
+              </Button>
+              <Button variant="outline" onClick={() => router.push("/")}>
+                {t("sign.up.verify.account.buttons.home")}
+              </Button>
             </CardFooter>
-          </>):verificationStatus === "error" ? (
+          </>
+        ) : verificationStatus === "error" ? (
           <>
             <CardHeader className="space-y-1">
               <div className="flex justify-center mb-4">
@@ -98,19 +101,31 @@ const VerifyAccount: NextPageWithLayout = () => {
                   <XCircle className="h-10 w-10 text-red-600 dark:text-red-300" />
                 </div>
               </div>
-              <CardTitle className="text-2xl font-bold text-center">{t("sign.up.verify.account.title.error")}</CardTitle>
-              <CardDescription className="text-center">{t("sign.up.verify.account.description.error")}</CardDescription>
+              <CardTitle className="text-2xl font-bold text-center">
+                {t("sign.up.verify.account.title.error")}
+              </CardTitle>
+              <CardDescription className="text-center">
+                {t("sign.up.verify.account.description.error")}
+              </CardDescription>
             </CardHeader>
 
             <CardFooter className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button variant="outline" onClick={() => router.push("/signup")} className="flex-1">
+              <Button
+                variant="outline"
+                onClick={() => router.push("/signup")}
+                className="flex-1"
+              >
                 {t("sign.up.verify.account.buttons.register")}
               </Button>
-              <Button className="bg-red-600 hover:bg-red-700 flex-1" onClick={() => router.push("/")}>
+              <Button
+                className="bg-red-600 hover:bg-red-700 flex-1"
+                onClick={() => router.push("/")}
+              >
                 {t("sign.up.verify.account.buttons.home")}
               </Button>
             </CardFooter>
-          </>):(
+          </>
+        ) : (
           <CardHeader className="space-y-1 text-center">
             <div className="flex justify-center mb-4">
               <div className="p-3 rounded-full border-4 border-green-500 border-t-transparent animate-spin h-10 w-10" />

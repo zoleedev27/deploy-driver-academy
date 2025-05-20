@@ -1,18 +1,17 @@
+import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { MapPin, Clock, Phone, Mail } from "lucide-react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import AnimatedTrack from "@/components/AnimatedTrack.tsx";
+import AnimatedTrack from "@/components/AnimatedTrack";
 import Marquee from "react-fast-marquee";
 import TrackStats from "@/components/TrackStats";
+import VideoStaticPlayer from "@/components/VideoStaticPlayer";
+import DynamicVideoPlayer from "@/components/DynamicVideoPlayer";
+import Calendar from "@/components/Calendar";
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["landing-page", "layout"])),
-    },
-  };
-}
+const youtubeUrl =
+  "https://www.youtube.com/watch?v=60BHloXKPME&pp=ygUHZ28ta2FydA%3D%3D";
 
 export default function HomePage() {
   const { t } = useTranslation("landing-page");
@@ -25,23 +24,56 @@ export default function HomePage() {
   const repeatedSponsors = [...sponsors, ...sponsors, ...sponsors];
 
   return (
-    <main className="max-w-7xl mx-auto px-4 pt-0 pb-0 space-y-24 font-body">
-      <TrackStats />
+    <main className="w-full mx-auto px-4 pt-0 pb-0 space-y-24 font-body">
+      <section className="relative w-full min-h-screen md:h-[90vh]">
+        <VideoStaticPlayer
+          className="absolute inset-0 w-full h-full object-cover"
+          url={"videoPlayer/5638369-sd_640_360_25fps.mp4"}
+        />
 
-      <section className="flex flex-col md:flex-row items-center md:items-start gap-12">
-        <div className="md:w-1/2 w-full">
-          <AnimatedTrack />
+        <div className="relative z-10 w-full h-full flex flex-col min-h-screen justify-between bg-black/30 p-5 md:p-8">
+          <div className="w-full flex justify-center items-center pt-8 md:pt-12">
+            <div className="w-full md:w-[90%] px-2 md:px-0">
+              <TrackStats className="transform scale-100 md:scale-125 text-white w-full" />
+            </div>
+          </div>
+
+          <div className="mb-6 md:mb-10" />
+
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-y-6 md:gap-y-0 md:gap-x-8">
+            <div className="w-full md:w-1/2 flex justify-center overflow-hidden">
+              <AnimatedTrack className="bg-transparent drop-shadow-lg w-full h-auto -translate-x-2.5 md:-translate-x-10 -mb-40 md:-mb-12 transition-transform duration-300" />
+            </div>
+
+            <div className="w-full md:w-1/2 text-white text-center md:text-left px-4 md:px-8">
+              <h2 className="text-2xl md:text-5xl font-bold futuristic-text mb-2 md:mb-4">
+                {t("track")}
+              </h2>
+              <p className="text-sm md:text-lg leading-tight md:leading-relaxed md:mb-125">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
+                faucibus ex sapien vitae pellentesque sem placerat.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="md:w-1/2 w-full flex flex-col justify-center text-center md:text-left space-y-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground futuristic-text">
-            {t("track")}
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-            faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi
-            pretium tellus duis convallis.
-          </p>
-        </div>
+      </section>
+
+      <section className="relative w-screen left-1/2 right-1/2 transform -translate-x-1/2 justify-center overflow-hidden px-4 md:px-0">
+        <DynamicVideoPlayer
+          url={youtubeUrl}
+          style={{
+            width: "1000px",
+            maxWidth: "100%",
+            margin: "0 auto",
+          }}
+        />
+      </section>
+
+      <section className="w-full py-6">
+        <h2 className="text-3xl font-bold text-center mb-6">
+          {t("calendar.title", "Event Calendar")}
+        </h2>
+        <Calendar />
       </section>
 
       <section className="w-full py-6 bg-background border-t border-border">
@@ -69,7 +101,7 @@ export default function HomePage() {
         </Marquee>
       </section>
 
-      <section className="flex flex-col md:flex-row gap-16 items-start">
+      <section className="flex flex-col md:flex-row gap-16 items-start px-4 md:px-16">
         <div className="flex-1">
           <iframe
             title="Google Maps"
@@ -127,3 +159,18 @@ export default function HomePage() {
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const translations = await serverSideTranslations(locale ?? "en", [
+    "common",
+    "layout",
+    "calendar",
+    "landing-page",
+  ]);
+
+  return {
+    props: {
+      ...translations,
+    },
+  };
+};

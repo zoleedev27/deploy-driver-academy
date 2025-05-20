@@ -21,25 +21,28 @@ export default function BlogPage({ posts }: BlogPageProps) {
   };
 
   return (
-    <>
-      <Head>
-        <title>Blog</title>
-        <meta name="description" content={metaDescription[currentLocale]} />
-        <link
-          rel="alternate"
-          hrefLang="en"
-          href="http://localhost:3000/en/blog"
-        />
-        <link
-          rel="alternate"
-          hrefLang="ro"
-          href="http://localhost:3000/ro/blog"
-        />
+      <>
+        <Head>
+          <title>Blog</title>
+          <meta name="description" content={metaDescription[currentLocale]} />
+          <link
+              rel="alternate"
+              hrefLang="en"
+              href="http://localhost:3000/en/blog"
+          />
+          <link
+              rel="alternate"
+              hrefLang="ro"
+              href="http://localhost:3000/ro/blog"
+          />
 
-        <meta property="og:type" content="website" />
-      </Head>
-      <BlogGrid posts={posts} />
-    </>
+          <meta property="og:type" content="website" />
+        </Head>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <BlogGrid posts={posts} />
+        </div>
+      </>
   );
 }
 

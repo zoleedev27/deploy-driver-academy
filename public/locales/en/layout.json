@@ -1,7 +1,7 @@
 {
     "footer" : {
         "brand": "Go Kart Cluj",
-        "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
+        "description": "Come to Cluj Karting Circuit and experience the thrill of high-speed racing! Safety, competition, and guaranteed fun await you!",
         "social.media": {
           "facebook": "Facebook",
           "instagram": "Instagram"
@@ -11,7 +11,7 @@
           "address": "407280, Nadaselu, Romania",
           "phone": "+40 739 853 530",
           "email": "rezervari@clujkartingcircuit.ro",
-          "hours.title": "Program:",
+          "program": "Program:",
           "hours": [
             "11:00 - 20:00",
             "10:00 - 20:00"
@@ -19,6 +19,7 @@
         },
         "newsletter": {
           "title": "Newsletter",
+          "description":"Speed updates, straight away",
           "placeholder": "Email address",
           "subscribe": "Subscribe",
           "reserve.title": "Make a reservation",
@@ -35,11 +36,10 @@
         "links": {
             "title": "Our Page Links",
             "home": "Home",
-            "about": "About Us",
-            "contact": "Contact Us",
+            "courses": "Courses",
+            "blog": "Blog",
             "gallery": "Gallery",
-            "calendar": "Calendar",
-            "inbox": "Inbox"
+            "contact": "Contact Us"
         }
     },
     "header":{
