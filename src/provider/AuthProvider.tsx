@@ -2,18 +2,18 @@ import { TOKEN_NAME } from "@/constants/general";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useLogin } from "@/hooks/useLogIn";
 import { useRegister } from "@/hooks/useRegister";
-import { LogInRequest, LogInResponse } from "@/Interfaces/auth/ILogin";
-import { RegisterRequest, RegisterResponse } from "@/Interfaces/auth/IRegister";
+import { LogInRequest, LogInResponse } from "@/interfaces/auth/ILogin";
+import { RegisterRequest, RegisterResponse } from "@/interfaces/auth/IRegister";
 import { deleteCookie, getCookie } from "cookies-next";
 import router from "next/router";
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { toast } from "sonner";
 import { useLaravelError } from "@/hooks/useLaravelError";
-import { ForgotPasswordRequest } from "@/Interfaces/auth/IForgotPassword";
+import { ForgotPasswordRequest } from "@/interfaces/auth/IForgotPassword";
 import { useForgotPassword } from "@/hooks/useForgotPassword";
 import { useResetPassword } from "@/hooks/useReset";
-import { IResetPasswordRequest } from "@/Interfaces/auth/IResetPassword";
+import { IResetPasswordRequest } from "@/interfaces/auth/IResetPassword";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const registerMutation = useRegister();

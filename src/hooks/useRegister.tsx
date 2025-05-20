@@ -1,4 +1,4 @@
-import { RegisterRequest, RegisterResponse } from "@/Interfaces/auth/IRegister";
+import { RegisterRequest, RegisterResponse } from "@/interfaces/auth/IRegister";
 import { registerUser } from "@/pages/api/auth/register";
 import { useMutation } from "@tanstack/react-query";
 

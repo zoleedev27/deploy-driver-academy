@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Facebook, MapPin, Phone, Mail, Clock, Instagram } from "lucide-react";
 import { NAV_LINKS } from "@/constants/NavigationLinks";
 import { useTranslation } from "next-i18next";
-import { IconMap } from "@/Interfaces/Navs";
+import { IconMap } from "@/interfaces/Navs";
 
 export const Footer = () => {
   const { t } = useTranslation("layout");

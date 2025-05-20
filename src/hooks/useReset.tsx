@@ -1,4 +1,4 @@
-import { IResetPasswordRequest } from "@/Interfaces/auth/IResetPassword";
+import { IResetPasswordRequest } from "@/interfaces/auth/IResetPassword";
 import { resetPasswordUser } from "@/pages/api/auth/resetPassword";
 import { useMutation } from "@tanstack/react-query";
 

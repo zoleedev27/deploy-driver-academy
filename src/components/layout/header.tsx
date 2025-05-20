@@ -5,7 +5,7 @@ import Image from "next/image";
 import { NAV_LINKS } from "@/constants/NavigationLinks";
 import { Button } from "@/components/ui/button";
 import { KeySquare, LogIn, LogOut, Menu, User } from "lucide-react";
-import { IconMap } from "@/Interfaces/Navs";
+import { IconMap } from "@/interfaces/Navs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { ModeToggle } from "@/components/theme/ThemeToggle";
