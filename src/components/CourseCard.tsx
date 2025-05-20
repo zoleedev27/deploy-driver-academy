@@ -27,9 +27,7 @@ export interface KartingCourseCardProps {
 const KartingCourseCard: React.FC<KartingCourseCardProps> = ({
   title,
   description,
-  teacherName,
   price,
-  maxParticipants,
   difficulty,
   images,
   labels,

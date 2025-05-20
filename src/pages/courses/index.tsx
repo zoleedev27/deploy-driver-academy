@@ -1,9 +1,9 @@
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { fetchCourses } from '@/pages/api/courses';
-import { useTranslation } from 'next-i18next';
-import KartingCourseCard from '@/components/CourseCard';
-import { PaginatedList } from '@/components/PaginatedList';
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { fetchCourses } from "@/pages/api/courses";
+import { useTranslation } from "next-i18next";
+import KartingCourseCard from "@/components/CourseCard";
+import { PaginatedList } from "@/components/PaginatedList";
 
 type Course = {
   id: number;
@@ -16,20 +16,23 @@ type Course = {
   images: string[];
 };
 
-const COURSES_QUERY_KEY = ['courses'];
+const COURSES_QUERY_KEY = ["courses"];
 
-export default function CoursesPage({}: any) {
-  const { t } = useTranslation('courses');
+export default function CoursesPage() {
+  const { t } = useTranslation("courses");
 
   const { data } = useQuery({
     queryKey: COURSES_QUERY_KEY,
     queryFn: () => fetchCourses({ page: 1, itemsPerPage: 100 }),
   });
 
-  const courses = data?.data.map((course: any) => ({
-    ...course,
-    images: course.images?.map((img: any) => img.url) ?? [],
-  })) ?? [];
+  const courses =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data?.data.map((course: any) => ({
+      ...course,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      images: course.images?.map((img: any) => img.url) ?? [],
+    })) ?? [];
 
   return (
     <main className="flex flex-col items-center gap-8 px-4 py-10 min-h-screen">
@@ -73,9 +76,9 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     props: {
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, [
-        'courses',
-        'pagination',
-        'layout',
+        "courses",
+        "pagination",
+        "layout",
       ])),
     },
   };

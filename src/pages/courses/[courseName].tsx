@@ -18,20 +18,30 @@ type Course = {
 
 const fetchCourseBySlug = async (slug: string): Promise<Course> => {
   const data = await fetchCourses({ page: 1, itemsPerPage: 100 });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const course = data.data.find((c: any) => slugify(c.title) === slug);
 
   if (!course) throw new Error("Course not found");
 
   return {
     ...course,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     images: course.images?.map((img: any) => img.url) ?? [],
   };
 };
 
-export default function CourseDetailsPage({ courseSlug }: { courseSlug: string }) {
+export default function CourseDetailsPage({
+  courseSlug,
+}: {
+  courseSlug: string;
+}) {
   const { t } = useTranslation("courses");
 
-  const { data: course, isLoading, error } = useQuery({
+  const {
+    data: course,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["course", courseSlug],
     queryFn: () => fetchCourseBySlug(courseSlug),
   });
@@ -111,7 +121,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       dehydratedState: dehydrate(queryClient),
       courseSlug: courseName,
-      ...(await serverSideTranslations(locale, ["courses", "pagination", "layout"])),
+      ...(await serverSideTranslations(locale, [
+        "courses",
+        "pagination",
+        "layout",
+      ])),
     },
   };
 }
