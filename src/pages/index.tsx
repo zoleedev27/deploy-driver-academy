@@ -50,8 +50,7 @@ export default function HomePage() {
                 {t("track")}
               </h2>
               <p className="text-sm md:text-lg leading-tight md:leading-relaxed md:mb-125">
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-                faucibus ex sapien vitae pellentesque sem placerat.
+                {t("description")}
               </p>
             </div>
           </div>
